@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harshil — Video Editor for Brands</title>
+<meta name="description" content="Harshil is a video editor for brands: hospitality, real estate, corporate films, events, concerts and more. View sample edits and get in touch.">
+<meta name="theme-color" content="#fbf3e2">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Harshil — Video Editor for Brands">
+<meta property="og:description" content="Campaign films, social content and event aftermovies for brands.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Yatra+One&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf3e2;--ink:#1f1233;--mute:#6b5d63;--line:#e3d3b3;--card:#f2e6cc;--acc:#e8501a;--c2:#26268f;--c3:#ffb81c;--c4:#d6246e;--c5:#00897b;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+:root[data-theme="dark"]{--bg:#1a0e22;--ink:#fbf3e2;--mute:#b7a8b3;--line:#3b2a48;--card:#26162f}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+body.lock{overflow:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+/* intro */
+#intro{position:fixed;inset:0;background:#ffc21a;color:#111110;z-index:200;display:flex;flex-direction:column;justify-content:space-between;padding:28px;transition:transform .9s cubic-bezier(.7,0,.2,1)}
+#intro.out{transform:translateY(-100%)}
+#intro .n{font:500 clamp(80px,22vw,260px)/.9 var(--mono);letter-spacing:-.05em;align-self:flex-end}
+#intro .n i{color:#ff5a1f;font-style:normal}
+#intro .l{display:flex;justify-content:space-between;color:#8d8a84}
+#intro .ln{height:2px;background:#26262a;margin:14px 0}#intro .ln b{display:block;height:100%;width:0;background:#ff5a1f}
+/* nav + hero */
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font-weight:700;font-size:19px;letter-spacing:-.02em}.logo small{font:400 13px var(--mono);color:var(--mute);margin-left:10px}
+.nav-r{display:flex;gap:26px;align-items:center;font-size:14px}.nav-r a:hover{color:var(--acc)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#0b0b0c;padding:13px 26px;border-radius:4px;font:600 15px 'Space Grotesk';transition:.2s;border:1.5px solid var(--acc)}
+.btn:hover{background:transparent;color:var(--acc)}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--line)}.btn.alt:hover{border-color:var(--ink);color:var(--ink)}
+.hero{position:relative;overflow:hidden;padding-bottom:140px;min-height:640px}
+.ruler{position:absolute;left:0;right:0;top:0;height:26px;border-bottom:1px solid var(--line);background:repeating-linear-gradient(90deg,var(--mute) 0 1px,transparent 1px 12px) 0 100%/100% 6px no-repeat,repeating-linear-gradient(90deg,var(--mute) 0 1px,transparent 1px 60px) 0 100%/100% 14px no-repeat;opacity:.5;animation:drift 12s linear infinite}
+@keyframes drift{to{background-position:-120px 100%,-120px 100%}}
+.hero .wrap>*{animation:in .8s both;animation-delay:calc(1.8s + var(--i,0)*.12s)}
+@keyframes in{from{opacity:0;transform:translateY(24px)}}
+.hero .mono.k{color:var(--acc);margin:64px 0 24px;display:flex;gap:10px;align-items:center}
+.rec{width:9px;height:9px;border-radius:50%;background:var(--acc);animation:blink 1.2s steps(2) infinite}
+@keyframes blink{50%{opacity:.15}}
+h1{font-size:clamp(44px,8.4vw,112px);line-height:.96;letter-spacing:-.045em;font-weight:700;max-width:11ch}
+h1 span{color:var(--acc)}
+.sub{max-width:540px;color:var(--mute);font-size:18px;margin:26px 0 34px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.tcbig{position:absolute;right:24px;top:70px;color:var(--mute);text-align:right;z-index:2}
+.tcbig b{display:block;font:500 clamp(18px,3vw,30px) var(--mono);color:var(--ink);letter-spacing:0}
+.wave{position:absolute;left:0;right:0;bottom:0;height:110px;display:flex;align-items:center;gap:3px;padding:0 3px;opacity:.9}
+.wave i{flex:1;background:var(--line);border-radius:2px;height:var(--h);transform-origin:center;animation:pl var(--d) ease-in-out infinite alternate}
+.wave i.hot{background:var(--acc)}
+@keyframes pl{to{transform:scaleY(.25)}}
+.ph{position:absolute;bottom:0;height:110px;width:2px;background:var(--acc);left:0;animation:sweep 14s linear infinite;z-index:1}
+.ph::before{content:"";position:absolute;top:-6px;left:-5px;border:6px solid transparent;border-top-color:var(--acc)}
+@keyframes sweep{to{left:100%}}
+/* sections */
+section{padding:100px 0 10px;position:relative}
+.trk{display:flex;gap:12px;align-items:center;color:var(--acc);margin-bottom:14px}.trk i{flex:0 0 36px;height:1px;background:var(--acc)}
+h2{font-size:clamp(34px,5vw,60px);letter-spacing:-.035em;line-height:1.02;max-width:17ch;font-weight:700}
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:46px}
+.head p{color:var(--mute);max-width:360px}
+.feat{display:grid;grid-template-columns:repeat(2,1fr);gap:44px 28px}
+.thumb{aspect-ratio:16/9;border-radius:6px;position:relative;overflow:hidden;background:var(--card)}
+.thumb::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
+.thumb::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.45))}
+.thumb .tg,.thumb .du{position:absolute;z-index:2;color:#fff;background:rgba(0,0,0,.55);padding:3px 8px;border-radius:3px}
+.thumb .tg{left:12px;top:12px}.thumb .du{right:12px;bottom:12px}
+.thumb .p{position:absolute;z-index:2;inset:0;display:grid;place-items:center}
+.thumb .p svg{width:46px;fill:#fff;opacity:.9;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
+.t1{background:linear-gradient(135deg,#ff5a1f,#5a0f1a)}.t2{background:linear-gradient(135deg,#1c6e7a,#0b1a3a)}.t3{background:linear-gradient(135deg,#3a3f4a,#0a0a0d)}
+.t4{background:linear-gradient(135deg,#e0a030,#4a2a10)}.t5{background:linear-gradient(135deg,#c8326a,#2a0f3a)}.t6{background:linear-gradient(135deg,#2a8a5a,#0f2a2a)}
+.t7{background:linear-gradient(135deg,#7a3aff,#ff5a1f)}.t8{background:linear-gradient(135deg,#1a2a6a,#e04a30)}
+.case h3{font-size:clamp(22px,2.4vw,30px);letter-spacing:-.03em;line-height:1.1;margin:18px 0 8px;transition:color .2s}
+.case:hover h3{color:var(--acc)}
+.case p{color:var(--mute);font-size:15px;max-width:46ch}
+.case .mono{color:var(--mute);margin-top:12px;display:block}
+.svc>div{display:grid;grid-template-columns:90px 1fr 1.2fr;gap:24px;padding:28px 0;border-top:1px solid var(--line);position:relative;align-items:baseline}
+.svc>div:last-child{border-bottom:1px solid var(--line)}
+.svc>div::after{content:"";position:absolute;left:0;top:-1px;height:1px;width:0;background:var(--acc);transition:width .7s}
+.svc>div.in::after{width:100%}
+.svc .mono{color:var(--acc)}.svc h4{font-size:24px;letter-spacing:-.02em}.svc p{color:var(--mute)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);padding:8px 18px;border-radius:4px;font:500 13px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--ink)}.chip.on{background:var(--acc);border-color:var(--acc);color:#0b0b0c}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:26px}
+.item h5{font-size:17px;margin-top:12px;font-weight:500}.item span.m{color:var(--mute);display:block}
+.item[hidden]{display:none}
+.contact{border-top:1px solid var(--line);margin-top:110px;padding:80px 0 30px}
+.contact h2{font-size:clamp(40px,7vw,96px);max-width:12ch;margin-bottom:26px}
+.contact p{color:var(--mute);margin-bottom:30px;max-width:420px}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:80px;color:var(--mute);font-size:13px}
+footer a:hover{color:var(--acc)}
+/* scrubber */
+#tl{position:fixed;left:0;right:0;bottom:0;z-index:90;display:flex;align-items:center;gap:16px;padding:12px 24px calc(12px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+#tl .t{font:500 13px var(--mono);min-width:96px;color:var(--ink)}
+#tk{position:relative;flex:1;height:22px}
+#tk::before{content:"";position:absolute;left:0;right:0;top:10px;height:2px;background:var(--line)}
+#tk .f{position:absolute;left:0;top:10px;height:2px;background:var(--acc);width:0}
+#tk .h{position:absolute;top:3px;width:2px;height:16px;background:var(--acc);left:0}
+#tk .h::before{content:"";position:absolute;top:-4px;left:-4px;width:10px;height:10px;border-radius:50%;background:var(--acc)}
+#tk a{position:absolute;top:4px;height:14px;width:1px;background:var(--mute)}
+#tk a span{position:absolute;top:-16px;left:6px;font:400 10px var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+/* theme switch */
+.thm{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,transform .4s}
+.thm:hover{border-color:var(--ink)}.thm:active{transform:rotate(30deg)}
+.thm svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.thm .sn{display:none}.thm .mn{display:block}
+:root[data-theme="dark"] .thm .sn{display:block}:root[data-theme="dark"] .thm .mn{display:none}
+body,#tl{transition:background-color .4s,color .4s}
+:root[data-theme="dark"] #services{background:color-mix(in srgb,var(--c2) 16%,var(--bg))}
+/* colour */
+#intro .n i{color:#26268f}#intro .l{color:#5a4a10}#intro .ln{background:rgba(0,0,0,.15)}#intro .ln b{background:#111110}
+.hero{background:radial-gradient(circle at 88% 18%,rgba(255,194,26,.4),transparent 38%),radial-gradient(circle at 8% 92%,rgba(43,60,255,.14),transparent 45%),radial-gradient(circle at 60% 100%,rgba(255,79,139,.16),transparent 40%)}
+h1 span{color:var(--acc);background:linear-gradient(var(--c3),var(--c3)) 0 90%/100% .22em no-repeat}
+.wave i:nth-child(4n+1){background:var(--c2)}.wave i:nth-child(4n+2){background:var(--c3)}.wave i:nth-child(4n+3){background:var(--c4)}.wave i:nth-child(4n){background:var(--c5)}.wave i.hot{background:var(--acc)}
+.svc>div:nth-child(1){--c:var(--acc)}.svc>div:nth-child(2){--c:var(--c2)}.svc>div:nth-child(3){--c:var(--c4)}.svc>div:nth-child(4){--c:var(--c5)}
+.svc .mono{color:var(--c)}.svc>div::after{background:var(--c)}
+#services{background:color-mix(in srgb,var(--c2) 9%,var(--bg));margin-top:100px;padding-bottom:100px}
+#services .trk{color:var(--c2)}#services .trk i{background:var(--c2)}
+#more .trk{color:var(--c5)}#more .trk i{background:var(--c5)}
+.chip.on{background:var(--c2);border-color:var(--c2);color:#fff}
+.contact{background:var(--c3);color:#111110;border-radius:24px;padding:70px 40px 30px;border-top:0;margin:100px 0 40px}
+.contact p,.contact footer{color:#4a3f1a}.contact .trk{color:#111110}.contact .trk i{background:#111110}
+.contact .btn{background:#111110;color:#fff;border-color:#111110}.contact .btn:hover{background:transparent;color:#111110}
+.contact footer a:hover{color:#111110;text-decoration:underline}
+@media(max-width:760px){.contact{padding:50px 22px 24px}}
+/* indian skin */
+h1,h2,.case h3,.svc h4{font-family:'Yatra One','Space Grotesk',serif;font-weight:400;letter-spacing:-.005em}
+h1{line-height:1.02}
+.logo small{font:400 16px 'Yatra One';color:var(--acc);letter-spacing:0}
+.svc .mono{font-family:'Yatra One',var(--mono);font-size:34px;letter-spacing:0;text-transform:none}
+.btn,.chip{border-radius:99px}
+#toran{display:flex;overflow:hidden;height:40px;box-shadow:inset 0 4px 0 var(--ink)}
+#toran i{flex:0 0 34px;height:40px;margin-top:4px;transform-origin:top center;animation:sw 3s ease-in-out infinite alternate;clip-path:polygon(0 0,100% 0,50% 100%)}
+@keyframes sw{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mand{position:absolute;right:-230px;top:30px;width:660px;height:660px;opacity:.6;animation:spin 90s linear infinite;z-index:1}
+#intro .mand{right:auto;left:50%;top:50%;margin:-310px 0 0 -310px;width:620px;height:620px;opacity:.4;animation-duration:40s}
+.hero{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='none' stroke='%23d6246e' stroke-opacity='.22' stroke-width='1.2'%3E%3Cpath d='M20 2L38 20L20 38L2 20Z'/%3E%3Ccircle cx='20' cy='20' r='5'/%3E%3C/svg%3E") 0 0/40px 40px,radial-gradient(circle at 88% 18%,rgba(255,184,28,.4),transparent 38%),radial-gradient(circle at 8% 92%,rgba(38,38,143,.14),transparent 45%),radial-gradient(circle at 60% 100%,rgba(214,36,110,.16),transparent 40%)}
+section::before{content:"";position:absolute;left:0;right:0;top:0;height:16px;z-index:2;background:linear-gradient(135deg,var(--zz,var(--acc)) 25%,transparent 25%) -14px 0/28px 16px,linear-gradient(225deg,var(--zz,var(--acc)) 25%,transparent 25%) -14px 0/28px 16px}
+#work{--zz:var(--acc)}#services{--zz:var(--c2)}#more{--zz:var(--c4)}#contact{--zz:var(--c5)}
+#services{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='none' stroke='%2326268f' stroke-opacity='.18' stroke-width='1.2'%3E%3Cpath d='M20 2L38 20L20 38L2 20Z'/%3E%3Ccircle cx='20' cy='20' r='5'/%3E%3C/svg%3E")}
+.contact{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='none' stroke='%23000' stroke-opacity='.12' stroke-width='1.2'%3E%3Cpath d='M20 2L38 20L20 38L2 20Z'/%3E%3Ccircle cx='20' cy='20' r='5'/%3E%3C/svg%3E")}
+.thumb{border:4px double var(--ink);border-radius:50% 50% 8px 8px/26% 26% 8px 8px}
+.thumb .tg{top:auto;bottom:12px}
+@media(max-width:760px){.mand{opacity:.3;right:-340px}}
+/* categories */
+.thumb{border:0;border-radius:16px}
+.thumb .tg{top:12px;bottom:auto}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.cat{display:block;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:12px 12px 20px;cursor:pointer;font:inherit;color:inherit;transition:border-color .2s,box-shadow .2s}
+.cat:hover,.cat:focus-visible{border-color:var(--cc);box-shadow:0 12px 30px -16px var(--cc);outline:none}
+.cat .thumb{margin-bottom:16px}
+.cat .hi,.sheet .hi{font:400 15px 'Yatra One';color:var(--cc)}
+.cat h3{font-family:'Yatra One','Space Grotesk',serif;font-weight:400;font-size:24px;margin:2px 0 8px;line-height:1.1}
+.cat p{color:var(--mute);font-size:14.5px}
+.cat .go{display:inline-block;margin-top:14px;font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cc)}
+#panel{position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:20px;background:rgba(20,10,30,.55);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
+#panel.open{opacity:1;visibility:visible;transition:opacity .3s}
+.sheet{background:var(--bg);color:var(--ink);border-radius:26px;width:100%;max-width:980px;max-height:calc(100vh - 40px);overflow:auto;padding:38px;position:relative;border:1.5px solid var(--line);transform:translateY(26px);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+#panel.open .sheet{transform:none}
+.x{position:absolute;right:18px;top:18px;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:var(--ink);font-size:24px;line-height:1;cursor:pointer}
+.x:hover{border-color:var(--ink)}
+.sheet h3{font-family:'Yatra One','Space Grotesk',serif;font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.05;margin:4px 0 14px;padding-right:50px}
+.sheet .ab{color:var(--mute);max-width:62ch;margin-bottom:28px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:30px}
+.cols h4,.sh{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cc);margin-bottom:12px}
+.cols ul{padding:0}.cols li{list-style:none;padding:10px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;font-size:15px}
+.cols li span{color:var(--mute);text-align:right}
+.sm{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-bottom:30px}
+.sm h5{font-size:15px;font-weight:500;margin-top:10px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}.sheet{padding:28px 20px}}
+.gtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.gtabs .chip small{opacity:.6;margin-left:4px;font:inherit}
+.gd{color:var(--mute);font-size:15px;margin-bottom:26px}
+.cat.fi{animation:in .5s both}
+@media(max-width:760px){.gtabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px}.gtabs .chip{white-space:nowrap;flex:0 0 auto}}
+.pick{display:grid;grid-template-columns:270px 1fr;gap:36px;align-items:start}
+.pr{margin-bottom:22px}.pl{display:block;color:var(--mute);margin-bottom:8px}
+.pb{display:flex;flex-direction:column;gap:6px}
+.pick .chip{text-align:left;border-radius:12px;padding:10px 14px;text-transform:none;letter-spacing:0;font:500 14.5px 'Space Grotesk';width:100%}
+.pick .chip.on{background:var(--cc);border-color:var(--cc);color:#fff}
+.pd{background:var(--card);border:1.5px solid var(--line);border-radius:24px;padding:28px;min-width:0}
+.pd.fi{animation:in .5s both}
+.dh{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.dh .hi{font:400 16px 'Yatra One';color:var(--cc)}
+.dh h3{font-family:'Yatra One','Space Grotesk',serif;font-weight:400;font-size:clamp(28px,3.4vw,42px);line-height:1.05;margin:4px 0 8px}
+.dh p{color:var(--mute);max-width:46ch}
+.vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin:24px 0}
+.vids h5{font-size:15px;font-weight:500;margin-top:10px}
+.di{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;border-top:1px solid var(--line);padding-top:20px}
+.di h4{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cc);margin-bottom:10px}
+.di ul{padding:0;margin:0;list-style:none}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tags li{border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:13.5px;background:var(--bg)}
+.gl li{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-top:1px solid var(--line);font-size:14px}.gl li:first-child{border-top:0}.gl span{color:var(--mute);text-align:right}
+@media(max-width:860px){.pick{grid-template-columns:1fr}.pb{flex-direction:row;flex-wrap:wrap}.pick .chip{width:auto;border-radius:99px}.di{grid-template-columns:1fr}.pd{padding:22px 18px}}
+.sel{display:grid}
+.sr{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center;padding:20px 0;border-top:1px solid var(--line)}
+.sr:last-child{border-bottom:1px solid var(--line)}
+.sr .pl{margin:0}
+.sb{display:flex;flex-wrap:wrap;gap:10px}
+.sel .chip{display:inline-flex;align-items:center;gap:10px;border-radius:99px;padding:12px 20px;font:500 15px 'Space Grotesk';text-transform:none;letter-spacing:0;border-color:var(--line);background:var(--card);width:auto}
+.sel .chip i{width:10px;height:10px;border-radius:50%;background:var(--cc)}
+.sel .chip b{font-weight:400;color:var(--cc);transition:transform .2s}
+.sel .chip:hover{border-color:var(--cc);background:var(--bg)}.sel .chip:hover b{transform:translateX(3px)}
+.sheet .vids{margin-top:22px}.sheet>.btn{margin-top:26px}
+@media(max-width:760px){.sr{grid-template-columns:1fr;gap:10px}}
+h1{font-size:clamp(68px,16vw,210px);line-height:.92;max-width:none;letter-spacing:-.02em}
+h1 b{font-weight:400}
+h1 small{font-size:.26em;color:var(--acc);margin-left:.35em;letter-spacing:0}
+.tag2{font:500 clamp(22px,3.2vw,38px)/1.15 'Space Grotesk',sans-serif;letter-spacing:-.025em;margin-top:18px}
+.tag2 em{font-style:normal;color:var(--acc);background:linear-gradient(var(--c3),var(--c3)) 0 90%/100% .22em no-repeat}
+.hero .sub{margin-top:18px}
+.sel .chip{padding:17px 28px;font-size:18px;gap:12px}
+.sel .chip i{width:12px;height:12px}
+.sb{gap:14px}
+.sr{padding:26px 0;grid-template-columns:250px 1fr}
+@media(max-width:760px){.sel .chip{padding:14px 22px;font-size:16.5px}.sr{grid-template-columns:1fr}}
+/* live textures */
+@keyframes jdrift{from{background-position:0 0,0 0,0 0,0 0}to{background-position:80px 80px,0 0,0 0,0 0}}
+@keyframes bgm{to{background-position:80px 80px}}
+@keyframes bgr{from{background-position:0 0}to{background-position:-80px 80px}}
+@keyframes dots{to{background-position:56px 56px}}
+@keyframes zz{from{background-position:-14px 0,-14px 0}to{background-position:14px 0,14px 0}}
+@keyframes glow{to{transform:translate(4%,-3%) rotate(6deg) scale(1.1)}}
+@keyframes shine{from{background-position:150% 0}to{background-position:-50% 0}}
+.hero{animation:jdrift 26s linear infinite}
+.hero::before{content:"";position:absolute;inset:-20%;z-index:0;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(255,184,28,.38),transparent 30%),radial-gradient(circle at 80% 70%,rgba(214,36,110,.26),transparent 32%),radial-gradient(circle at 60% 20%,rgba(0,137,123,.22),transparent 28%);animation:glow 16s ease-in-out infinite alternate}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.3) 50%,transparent 60%) 150% 0/250% 100%;animation:shine 10s linear infinite}
+#services{animation:bgm 30s linear infinite}
+.contact{animation:bgr 36s linear infinite}
+#work,#more{background-image:radial-gradient(var(--line) 1.6px,transparent 2px);background-size:28px 28px;animation:dots 40s linear infinite}
+section::before{animation:zz 5s linear infinite}
+@media(prefers-reduced-motion:reduce){html:not([data-motion="on"]) *::before,html:not([data-motion="on"]) *::after{animation:none!important}}
+/* moving art */
+.mv{position:absolute;left:0;z-index:1;pointer-events:none;color:var(--ink)}
+.mv svg{display:block;overflow:visible}
+.mv.r{animation:mvr var(--t,40s) linear infinite}
+.mv.l{animation:mvl var(--t,40s) linear infinite}
+.mv.l svg{scale:-1 1}
+@keyframes mvr{from{transform:translateX(-240px)}to{transform:translateX(calc(100vw + 240px))}}
+@keyframes mvl{from{transform:translateX(calc(100vw + 240px))}to{transform:translateX(-240px)}}
+.fish svg{animation:wobf 2.6s ease-in-out infinite alternate}
+@keyframes wobf{from{transform:translateY(-7px) rotate(-4deg)}to{transform:translateY(7px) rotate(4deg)}}
+.bird svg{animation:bobb 3.4s ease-in-out infinite alternate}
+@keyframes bobb{from{transform:translateY(-22px)}to{transform:translateY(22px)}}
+.bird .wg{transform-box:fill-box;transform-origin:25% 100%;animation:flapw .45s ease-in-out infinite alternate}
+@keyframes flapw{from{transform:rotate(-28deg)}to{transform:rotate(22deg)}}
+.pt{bottom:-60px;animation:rise var(--t,22s) linear infinite}
+.pt svg{animation:swayp 3s ease-in-out infinite alternate}
+@keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.95}90%{opacity:.95}100%{transform:translateY(-130vh) rotate(360deg);opacity:0}}
+@keyframes swayp{from{transform:translateX(-18px)}to{transform:translateX(18px)}}
+.el svg{animation:bobe .9s ease-in-out infinite alternate}
+@keyframes bobe{to{transform:translateY(-3px)}}
+.leg{transform-box:fill-box;transform-origin:50% 0;animation:legw .9s ease-in-out infinite alternate}
+.leg:nth-child(odd){animation-delay:-.45s}
+@keyframes legw{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+@media(prefers-reduced-motion:reduce){html:not([data-motion="on"]) .mv{display:none}}
+.mot{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+.mot:hover{border-color:var(--ink)}
+@media(max-width:760px){.mot{padding:7px 10px;font-size:11px}}
+/* responsive + performance */
+html{overflow-x:hidden}body{overflow-x:clip;-webkit-tap-highlight-color:transparent}
+button,a{touch-action:manipulation}
+.sheet{max-height:calc(100dvh - 32px);overscroll-behavior:contain}
+@media(max-width:760px),(pointer:coarse){
+.hero,#services,.contact,#work,#more,section::before{animation:none}
+.hero::after{display:none}.hero::before{animation:none;inset:0}
+#tl{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}
+}
+@media(max-width:760px){
+.wrap{padding:0 18px}
+nav{padding:14px 0}.logo small{display:none}.nav-r{gap:10px}
+.nav-r .btn{padding:8px 14px!important;font-size:13px!important}
+.thm{width:34px;height:34px}
+.hero{min-height:0;padding-bottom:120px}
+.hero .mono.k{margin:30px 0 16px;font-size:11px;line-height:1.4}
+h1{font-size:clamp(56px,19vw,96px)}
+h1 small{display:block;margin:4px 0 0;font-size:.3em}
+.tag2{font-size:22px;margin-top:12px}.hero .sub{font-size:16px}
+.cta .btn{flex:1 1 100%;justify-content:center}
+.wave{height:84px;gap:2px}.ph{height:84px}
+section{padding:70px 0 6px}.head{margin-bottom:26px}
+h2{font-size:clamp(30px,9vw,44px)}
+.sr{padding:20px 0}.sr .pl{font-size:11px}
+#panel{padding:12px}.sheet{padding:26px 18px;border-radius:20px}
+.dh .btn{width:100%;justify-content:center}
+.contact h2{font-size:clamp(34px,10vw,48px)}.contact{margin:70px 0 30px}
+footer{font-size:12px}
+#tl{gap:10px;padding-left:14px;padding-right:14px}#tl .t{min-width:88px;font-size:12px}
+}
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html:not([data-motion="on"]) *{animation:none!important;transition:none!important}html:not([data-motion="on"]) .rv{opacity:1;transform:none}html:not([data-motion="on"]) #intro{display:none}html:not([data-motion="on"]) body.lock{overflow:auto}html:not([data-motion="on"]) .ph{display:none}}
+@media(max-width:760px){.feat{grid-template-columns:1fr}.nav-r a.h{display:none}.svc>div{grid-template-columns:1fr;gap:6px}.tcbig{display:none}#tk a span{display:none}#tl{padding-left:16px;padding-right:16px}.hero{min-height:560px}}
+</style>
+<noscript><style>#intro{display:none}body.lock{overflow:auto}.rv,.hero .wrap>*{opacity:1!important;animation:none!important;transform:none!important}</style></noscript>
+</head>
+<body class="lock">
+<div id="intro" aria-hidden="true"><svg class="mand" id="mi" viewBox="-100 -100 200 200"></svg><div class="l mono"><span>Harshil · हर्षिल</span><span>Loading reel</span></div><div><div class="n"><span id="in">000</span><i>%</i></div><div class="ln"><b id="ib"></b></div></div></div>
+
+<div id="toran" aria-hidden="true"></div>
+<header class="hero">
+  <div class="ruler" aria-hidden="true"></div>
+  <svg class="mand" id="mh" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
+  <div class="tcbig mono" aria-hidden="true">समय · Timecode<b id="hc">00:00:00:00</b></div>
+  <div class="wrap">
+    <nav style="--i:0">
+      <a class="logo" href="#">Harshil<small>हर्षिल</small></a>
+      <div class="nav-r"><a class="h" href="#work">Work</a><a class="h" href="#services">Services</a><a class="h" href="#more">More work</a><a class="btn" href="#contact" style="padding:9px 20px;font-size:14px">Contact</a><button class="thm" id="thm" aria-label="Switch to dark theme" aria-pressed="false"><svg class="sn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="mn" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></svg></button><button class="mot" id="mot" hidden aria-pressed="false">Animations: off</button></div>
+    </nav>
+    <div class="mono k" style="--i:1"><span class="rec"></span>Video editor · Brands, hospitality, real estate, live events</div>
+    <h1 style="--i:2"><b>Harshil</b><small>हर्षिल</small></h1>
+    <p class="tag2" style="--i:3">Video editing for <em>brands.</em></p>
+    <p class="sub" style="--i:4">I edit campaign films, social content and event aftermovies for restaurants, hotels, real estate developers and live entertainment brands.</p>
+    <div class="cta" style="--i:5"><a class="btn" href="#work">Explore categories</a><a class="btn alt" href="#contact">Start a project</a></div>
+  </div>
+  <div class="wave" id="wave" aria-hidden="true"></div><div class="ph" aria-hidden="true"></div>
+</header>
+
+<section id="work"><div class="wrap">
+  <div class="head rv"><div><div class="trk mono"><i></i>V1 · चयनित काम · Selected work</div><h2>Choose a category.</h2></div><p>Select a type of project to see sample edits and what's included.</p></div>
+  <div class="feat" id="feat"></div>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <div class="head rv"><div><div class="trk mono"><i></i>V2 · सेवाएँ · Services</div><h2>What I do for brands.</h2></div></div>
+  <div class="svc">
+    <div class="rv"><span class="mono">१</span><h4>Campaign &amp; social content</h4><p>Short-form edits for Instagram, YouTube and paid campaigns, built around your brand guidelines.</p></div>
+    <div class="rv"><span class="mono">२</span><h4>Hospitality &amp; property films</h4><p>Walkthroughs and promos for restaurants, hotels and developments with considered pacing, grade and sound.</p></div>
+    <div class="rv"><span class="mono">३</span><h4>Brand &amp; corporate films</h4><p>Story-led edits for founders, teams and products, including motion graphics and subtitles.</p></div>
+    <div class="rv"><span class="mono">४</span><h4>Concerts &amp; live events</h4><p>Multi-camera aftermovies and highlight reels, cut to the music and delivered quickly.</p></div>
+  </div>
+</div></section>
+
+<section id="more"><div class="wrap">
+  <div class="head rv"><div><div class="trk mono"><i></i>V3 · और काम · More work</div><h2>Beyond brands.</h2></div><p>Other kinds of projects I take on.</p></div>
+  <div class="chips rv" id="chips"></div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <div class="contact rv">
+    <div class="trk mono"><i></i>संपर्क · Contact
+    <h2>Have a project in mind?</h2>
+    <p>Share a brief and timeline. I'll reply within one working day.</p>
+    <a class="btn" href="mailto:hello@harshil.com">hello@harshil.com</a>
+    <footer><span>© 2026 Harshil</span><span><a href="#">Instagram</a> · <a href="#">YouTube</a> · <a href="#">LinkedIn</a></span></footer>
+  </div>
+</div></section>
+
+<div id="panel" role="dialog" aria-modal="true" aria-labelledby="pt"><div class="sheet" id="sheet"></div></div>
+<div id="tl"><span class="t" id="tc">00:00:00:00</span><div id="tk"><div class="f" id="tf"></div><div class="h" id="th"></div></div></div>
+
+<script>
+// EDIT HERE: replace titles and details, and set link to your YouTube/Vimeo URL.
+var featured=[
+ {t:"t1",k:"Hospitality",h:"Ember & Oak: restaurant launch campaign",p:"A series of short-form reels covering the menu, kitchen and atmosphere for a new opening.",m:"12 reels · Instagram",d:"00:30",link:"#"},
+ {t:"t2",k:"Real Estate",h:"Skyline Residences: launch film",p:"A cinematic walkthrough and teaser cutdowns for a premium apartment development.",m:"1 film + 6 cutdowns · 4K",d:"02:10",link:"#"},
+ {t:"t3",k:"Corporate",h:"Northwind: founder story",p:"A brand film with motion graphics and custom sound design.",m:"1 film + 3 cutdowns",d:"01:30",link:"#"},
+ {t:"t7",k:"Concert",h:"Neon Nights Live: aftermovie",p:"A multi-camera edit of a live show, cut to the beat with colour grade and crowd moments.",m:"6 cameras · 4K",d:"03:00",link:"#"}
+];
+var more=[
+ {t:"t7",c:"Concerts",h:"Neon Nights: aftermovie"},{t:"t8",c:"Concerts",h:"Sufi night: live multicam"},
+ {t:"t5",c:"Weddings",h:"Aarav & Meera: highlight film"},{t:"t4",c:"Weddings",h:"Destination wedding, Udaipur"},
+ {t:"t6",c:"Creators",h:"Travel vlog edit"},{t:"t2",c:"Creators",h:"YouTube explainer"},
+ {t:"t1",c:"Reels",h:"Fashion lookbook"},{t:"t3",c:"Reels",h:"Product teaser"}
+];
+function $(i){return document.getElementById(i)}
+var play='<div class="p"><svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg></div>';
+$('feat').innerHTML=featured.map(function(f,i){return '<a class="case rv" style="transition-delay:'+(i%2*.1)+'s" href="'+f.link+'"><div class="thumb '+f.t+'"><span class="tg mono">'+f.k+'</span><span class="du mono">'+f.d+'</span>'+play+'</div><h3>'+f.h+'</h3><p>'+f.p+'</p><span class="mono">'+f.m+'</span></a>'}).join('');
+var cats=["All"].concat(more.map(function(m){return m.c}).filter(function(v,i,a){return a.indexOf(v)===i}));
+$('grid').innerHTML=more.map(function(m,i){return '<a class="item rv" style="transition-delay:'+(i%4*.07)+'s" href="#" data-c="'+m.c+'"><div class="thumb '+m.t+'">'+play+'</div><h5>'+m.h+'</h5><span class="m mono">'+m.c+'</span></a>'}).join('');
+$('chips').innerHTML=cats.map(function(c,i){return '<button class="chip'+(i?'':' on')+'" data-c="'+c+'">'+c+'</button>'}).join('');
+$('chips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;
+ this.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});b.classList.add('on');
+ $('grid').querySelectorAll('.item').forEach(function(i){i.hidden=b.dataset.c!=='All'&&i.dataset.c!==b.dataset.c});setTimeout(marks,60)});
+// Indian decor: toran bunting + rangoli mandala
+var cs=['var(--acc)','var(--c4)','var(--c3)','var(--c5)','var(--c2)'],tn='';
+for(var i=0;i<60;i++)tn+='<i style="background:'+cs[i%5]+';animation-delay:-'+(i%7*.4)+'s"></i>';
+$('toran').innerHTML=tn;
+function mandala(id,pal){var K='#1f1233',s='';[[16,86,0],[12,64,1],[8,44,2],[6,26,3]].forEach(function(r,k){for(var i=0;i<r[0];i++){s+='<path transform="rotate('+(i*360/r[0]+(k%2?10:0))+') scale('+r[1]/90+')" d="M0 0C-16 -30 -16 -60 0 -90C16 -60 16 -30 0 0Z" fill="'+pal[r[2]%pal.length]+'" stroke="'+K+'" stroke-width="1.6"/>'}});s+='<circle r="8" fill="#fbf3e2" stroke="'+K+'" stroke-width="2"/>';for(var j=0;j<24;j++)s+='<circle cx="'+(Math.cos(j*Math.PI/12)*94).toFixed(1)+'" cy="'+(Math.sin(j*Math.PI/12)*94).toFixed(1)+'" r="2.4" fill="#ffb81c"/>';$(id).innerHTML=s}
+mandala('mh',['#d6246e','#ffb81c','#00897b','#e8501a']);mandala('mi',['#e8501a','#d6246e','#ffb81c','#26268f']);
+// categories + detail panel (placeholder info: edit freely)
+var C=[
+{g:1,n:'Hospitality & restaurants',hi:'आतिथ्य',t:'t1',c:'#e8501a',b:'Launch reels, menu stories and venue promos for restaurants, cafés and hotels.',a:'Food and hospitality brands win attention in seconds. I cut footage into short, on-brand edits that show the food, the space and the people, with pacing and sound that suit each platform.',w:['Launch and menu reels','Chef and kitchen stories','Venue and ambience promos','Monthly content packs'],s:[['Turnaround','3–5 working days'],['Formats','9:16, 1:1, 16:9'],['You provide','Raw clips, logo, fonts']],v:[['Ember & Oak: launch reels','00:30','t1'],['Spice Route: menu stories','00:20','t4'],['Café Aroma: monthly pack','00:45','t8']]},
+{g:1,n:'Real estate & property',hi:'रियल एस्टेट',t:'t2',c:'#26268f',b:'Walkthrough films and teaser cutdowns for developments, homes and commercial spaces.',a:'A property film has to feel premium and clear. I build calm, well-paced edits with colour correction, music and on-screen details so buyers understand the space quickly.',w:['Cinematic walkthrough film','Teaser cutdowns for social','Drone and interior colour grade','Floor-plan and amenity graphics'],s:[['Turnaround','5–7 working days'],['Formats','16:9 4K, 9:16 teasers'],['You provide','Footage, floor plans, brief']],v:[['Skyline Residences: launch film','02:10','t2'],['Lakeview Villas: tour','01:15','t6'],['Orbit Offices: teaser','00:25','t3']]},
+{g:1,n:'Corporate & brand films',hi:'कॉर्पोरेट',t:'t3',c:'#00897b',b:'Founder stories, product films and company videos with motion graphics.',a:'Story-led edits for founders, teams and products. I shape interviews and B-roll into a clear message, with graphics, subtitles and sound design that fit your brand guidelines.',w:['Founder and team stories','Product and explainer films','Motion graphics and subtitles','Social cutdowns'],s:[['Turnaround','1–2 weeks'],['Formats','16:9, 9:16 cutdowns'],['You provide','Interviews, B-roll, script']],v:[['Northwind: founder story','01:30','t3'],['Kite Labs: product film','01:00','t7'],['Arogya: company video','02:00','t5']]},
+{g:1,n:'Concerts & live events',hi:'लाइव शो',t:'t7',c:'#d6246e',b:'Multi-camera aftermovies and highlight reels cut to the music.',a:'Live shows need energy and speed. I sync multi-camera footage, cut to the beat and grade for stage lighting, delivering highlights fast while the buzz is still fresh.',w:['Multi-camera aftermovies','Same-week highlight reels','Artist and sponsor cutdowns','Colour grade for stage lighting'],s:[['Turnaround','2–4 days for highlights'],['Formats','16:9 4K, 9:16 reels'],['You provide','All camera cards, audio, brief']],v:[['Neon Nights Live: aftermovie','03:00','t7'],['Sufi Night: multicam','02:20','t8'],['Campus Fest: highlights','01:10','t4']]},
+{g:2,n:'Weddings',hi:'शादी',t:'t5',c:'#e8501a',b:'Highlight films and teasers that keep the day feeling the way it did.',a:'Weddings are about emotion and timing. I build highlight films and short teasers from the ceremony, family moments and music, with careful audio and a warm, natural grade.',w:['Highlight film','Teaser for social','Full ceremony edit','Song and speech edits'],s:[['Turnaround','2–3 weeks'],['Formats','16:9 4K, 9:16 teaser'],['You provide','Footage and music choices']],v:[['Aarav & Meera: highlights','04:00','t5'],['Udaipur destination wedding','03:20','t4'],['Sangeet night: teaser','00:45','t6']]},
+{g:2,n:'Creators & YouTube',hi:'क्रिएटर्स',t:'t6',c:'#00897b',b:'Long-form edits, vlogs and explainers with strong pacing.',a:'Consistent, watchable edits for channels. I handle cuts, pacing, captions, sound and thumbnails-ready frames so creators can focus on filming.',w:['Long-form YouTube edits','Vlogs and explainers','Captions and sound clean-up','Shorts from long videos'],s:[['Turnaround','2–4 days per video'],['Formats','16:9, 9:16 shorts'],['You provide','Raw footage and references']],v:[['Travel vlog edit','12:00','t6'],['YouTube explainer','08:30','t2'],['Podcast clips','00:50','t3']]},
+{g:2,n:'Reels & short-form',hi:'रील्स',t:'t4',c:'#d6246e',b:'Fashion, product and lifestyle reels built for social platforms.',a:'Fast, punchy edits for brands and individuals who post often. I focus on hooks, rhythm, sound and clean captions to suit each platform.',w:['Fashion and lookbook reels','Product teasers','Trend-aware short edits','Weekly reel batches'],s:[['Turnaround','1–3 working days'],['Formats','9:16, 1:1'],['You provide','Clips and references']],v:[['Fashion lookbook','00:30','t1'],['Skincare product teaser','00:20','t3'],['Festival collection reel','00:25','t5']]},
+{g:1,n:'Corporate events & conferences',hi:'कॉर्पोरेट इवेंट',t:'t3',c:'#26268f',b:'Event recaps, launches and keynote highlights for companies.',a:'Events end quickly, but the footage can work for months. I turn multi-camera coverage, keynotes and interviews into recaps, speaker clips and sponsor-ready highlights.',w:['Event recap film','Keynote and speaker clips','Launch and sponsor highlights','Same-day social cuts'],s:[['Turnaround','Same day to 5 days'],['Formats','16:9, 9:16 clips'],['You provide','Camera cards, slides, brief']],v:[['TechSummit: recap film','02:30','t3'],['Product launch: keynote cut','01:45','t2'],['Annual meet: highlights','01:20','t6']]},
+{g:1,n:'Fashion, retail & e-commerce',hi:'फ़ैशन और रिटेल',t:'t5',c:'#d6246e',b:'Product videos, lookbooks and campaign edits for stores and online brands.',a:'Retail content has to look good and sell. I cut product shots, lookbooks and campaign footage into clean edits for store pages, marketplaces and social ads.',w:['Product and catalogue videos','Lookbooks and campaign films','Festive sale ad creatives','Marketplace-ready cutdowns'],s:[['Turnaround','2–5 working days'],['Formats','9:16, 1:1, 4:5, 16:9'],['You provide','Product footage, offers, brand kit']],v:[['Festive collection: campaign','00:45','t5'],['Home store: product videos','00:20','t4'],['Sneaker drop: ad set','00:15','t1']]},
+{g:1,n:'Startups & tech',hi:'स्टार्टअप',t:'t7',c:'#00897b',b:'Product demos, explainers and launch videos for tech companies.',a:'Tech products need clarity. I combine screen recordings, motion graphics and voiceover into explainers and launch videos that make a product easy to understand.',w:['Product demo videos','Explainers with motion graphics','Launch and investor videos','Social teasers'],s:[['Turnaround','1–2 weeks'],['Formats','16:9, 9:16 teasers'],['You provide','Screen recordings, script, brand kit']],v:[['Kite Labs: product demo','01:20','t7'],['PayEase: explainer','01:00','t2'],['Launch day teaser','00:20','t8']]},
+{g:1,n:'Education & coaching',hi:'शिक्षा',t:'t6',c:'#e8501a',b:'Course promos, ads and lesson videos for schools, edtech and coaches.',a:'Education brands need trust and clarity. I edit lessons, faculty intros and course promos with clear captions, pacing and graphics that keep students watching.',w:['Course and admission promos','Faculty and topper stories','Lesson editing and captions','Short clips for social'],s:[['Turnaround','3–7 working days'],['Formats','16:9, 9:16'],['You provide','Recordings, topics, brand kit']],v:[['Admissions campaign','01:00','t6'],['Faculty introductions','00:40','t4'],['Course promo','00:30','t1']]},
+{g:1,n:'Healthcare & wellness',hi:'स्वास्थ्य',t:'t2',c:'#26268f',b:'Videos for clinics, gyms, salons, spas and wellness brands.',a:'Wellness brands rely on trust. I create calm, clear edits for clinics, gyms and spas, from doctor introductions and patient information to transformation stories and class promos.',w:['Doctor and clinic introductions','Awareness and explainer videos','Gym and class promos','Client story edits'],s:[['Turnaround','3–5 working days'],['Formats','16:9, 9:16'],['You provide','Footage, consents, brand kit']],v:[['Care Clinic: intro film','01:10','t2'],['FitHub: class promo','00:30','t8'],['Serene Spa: brand reel','00:40','t6']]},
+{g:1,n:'Automotive',hi:'ऑटोमोटिव',t:'t8',c:'#d6246e',b:'Walkarounds and launch reels for dealerships and vehicle brands.',a:'Vehicle videos need sharp pacing and clean detail shots. I cut walkarounds, feature highlights and launch reels with graphics and sound that suit dealerships and brands.',w:['Walkaround videos','Launch reels','Feature highlights','Delivery and customer clips'],s:[['Turnaround','2–4 working days'],['Formats','16:9, 9:16'],['You provide','Footage, specs, offers']],v:[['SUV launch: walkaround','01:30','t8'],['Dealership: monthly offers','00:25','t1'],['Delivery day reel','00:30','t5']]},
+{g:1,n:'Travel & tourism',hi:'यात्रा',t:'t4',c:'#00897b',b:'Destination films and promos for resorts, tour operators and tourism boards.',a:'Travel videos sell a feeling. I edit destination footage into films and reels that capture the place, the experience and the booking details.',w:['Destination films','Resort and stay promos','Tour operator reels','Seasonal campaign cutdowns'],s:[['Turnaround','4–7 working days'],['Formats','16:9 4K, 9:16'],['You provide','Footage, itineraries, music preferences']],v:[['Coastal resort: film','01:45','t4'],['Himalayan trek: promo','01:00','t6'],['Heritage tour: reel','00:30','t8']]},
+{g:1,n:'Customer testimonials',hi:'ग्राहक कहानियाँ',t:'t1',c:'#e8501a',b:'Short client stories that build trust for services and products.',a:'Real voices build trust. I edit customer interviews into short, honest stories with subtitles, B-roll and brand graphics for websites, sales decks and social.',w:['Customer story videos','Short quote clips','Subtitles and translations','Website and sales-deck versions'],s:[['Turnaround','2–4 working days'],['Formats','16:9, 9:16'],['You provide','Interview recordings, release forms']],v:[['Client story: logistics','01:30','t1'],['Customer quotes: 5 clips','00:15','t3'],['Founder testimonial','01:00','t7']]},
+{g:1,n:'NGOs & campaigns',hi:'अभियान',t:'t6',c:'#26268f',b:'Awareness films, CSR videos and fundraising campaigns.',a:'Cause-led videos need sensitivity and clarity. I shape field footage and interviews into awareness films, impact stories and fundraising videos with subtitles in multiple languages.',w:['Awareness and impact films','CSR and report videos','Fundraising campaign edits','Multi-language subtitles'],s:[['Turnaround','1–2 weeks'],['Formats','16:9, 9:16'],['You provide','Footage, data points, language needs']],v:[['Clean water drive: film','02:00','t6'],['CSR impact report','01:30','t2'],['Fundraiser appeal','01:00','t5']]},
+{g:2,n:'Music videos & artists',hi:'संगीत',t:'t7',c:'#d6246e',b:'Music videos, lyric videos and artist content for musicians and labels.',a:'Music videos live on rhythm. I cut to the track, shape the story and colour and build lyric videos, teasers and artist content for musicians and labels.',w:['Music videos','Lyric videos','Teasers and reels for release','Artist interview and BTS edits'],s:[['Turnaround','1–3 weeks'],['Formats','16:9 4K, 9:16 teasers'],['You provide','Footage, track, treatment']],v:[['Indie single: music video','03:40','t7'],['Lyric video','03:10','t8'],['Release teaser','00:20','t1']]}
+];
+function tile(c,i){return '<button class="cat rv" style="--cc:'+c.c+';transition-delay:'+(i%4*.07)+'s" data-i="'+i+'"><div class="thumb '+c.t+'"><span class="tg mono">'+c.v.length+' sample edits</span><div class="p">'+play+'</div></div><span class="hi">'+c.hi+'</span><h3>'+c.n+'</h3><p>'+c.b+'</p><span class="go">Explore →</span></button>'}
+function tiles(g){return C.map(function(c,i){return c.g===g?tile(c,i):''}).join('')}
+var G=[
+ ['Food, stay & travel','Restaurants, cafés, hotels, resorts and tour operators.',['Hospitality & restaurants','Travel & tourism']],
+ ['Property & auto','Developers, brokers, dealerships and vehicle brands.',['Real estate & property','Automotive']],
+ ['Corporate, tech & causes','Companies, startups, client stories and NGOs.',['Corporate & brand films','Startups & tech','Customer testimonials','NGOs & campaigns']],
+ ['Events','Conferences, launches, concerts and live shows.',['Corporate events & conferences','Concerts & live events']],
+ ['Retail, health & learning','Stores, clinics, gyms, schools and coaching.',['Fashion, retail & e-commerce','Healthcare & wellness','Education & coaching']]
+];
+var tb=document.createElement('div');tb.className='gtabs rv';$('feat').parentNode.insertBefore(tb,$('feat'));
+var gd=document.createElement('p');gd.className='gd';$('feat').parentNode.insertBefore(gd,$('feat'));
+function showG(k){tb.querySelectorAll('.chip').forEach(function(b,j){b.classList.toggle('on',j===k)});gd.textContent=G[k][1];
+ $('feat').innerHTML=G[k][2].map(function(nm){var i=C.findIndex(function(c){return c.n===nm});return tile(C[i],i).replace('cat rv','cat fi')}).join('')}
+tb.innerHTML=G.map(function(g,k){return '<button class="chip'+(k?'':' on')+'" data-k="'+k+'">'+g[0]+' <small>'+g[2].length+'</small></button>'}).join('');
+tb.addEventListener('click',function(e){var b=e.target.closest('.chip');if(b)showG(+b.dataset.k)});
+$('feat').className='cats';showG(0);
+$('grid').className='cats';$('grid').innerHTML=tiles(2);
+$('chips').remove();
+var panel=$('panel'),sheet=$('sheet'),lastF=null;
+function openCat(i){var c=C[i];lastF=document.activeElement;sheet.style.setProperty('--cc',c.c);
+ sheet.innerHTML='<button class="x" id="cx" aria-label="Close">×</button><span class="hi">'+c.hi+'</span><h3 id="pt">'+c.n+'</h3><p class="ab">'+c.a+'</p><div class="cols"><div><h4>What you get</h4><ul>'+c.w.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div><div><h4>Good to know</h4><ul>'+c.s.map(function(x){return '<li>'+x[0]+'<span>'+x[1]+'</span></li>'}).join('')+'</ul></div></div><h4 class="sh">Sample edits</h4><div class="sm">'+c.v.map(function(v){return '<a href="'+(v[3]||'#')+'"><div class="thumb '+v[2]+'"><span class="du mono">'+v[1]+'</span>'+play+'</div><h5>'+v[0]+'</h5></a>'}).join('')+'</div><a class="btn" href="mailto:hello@harshil.com?subject='+encodeURIComponent('Project enquiry: '+c.n)+'">Discuss a project</a>';
+ sheet.scrollTop=0;panel.classList.add('open');document.body.classList.add('lock');$('cx').focus()}
+function closeCat(){panel.classList.remove('open');document.body.classList.remove('lock');if(lastF)lastF.focus()}
+document.addEventListener('click',function(e){var t=e.target.closest('.cat');if(t){openCat(+t.dataset.i);return}
+ var a=e.target.closest('.sm a');if(a&&a.getAttribute('href')==='#')e.preventDefault();
+ if(e.target.id==='cx'||e.target===panel)closeCat()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('open'))closeCat()});
+// picker: choose a type, its videos appear
+tb.remove();gd.remove();
+function idx(nm){return C.findIndex(function(c){return c.n===nm})}
+function picker(host,groups){
+ host.className='pick';host.innerHTML='<div class="pg"></div><div class="pd" aria-live="polite"></div>';
+ var pg=host.querySelector('.pg'),pd=host.querySelector('.pd');
+ pg.innerHTML=groups.map(function(g){return '<div class="pr"><span class="pl mono">'+g[0]+'</span><div class="pb">'+g[1].map(function(nm){var i=idx(nm);return '<button class="chip" style="--cc:'+C[i].c+'" data-i="'+i+'">'+nm+'</button>'}).join('')+'</div></div>'}).join('');
+ function show(i,scroll){var c=C[i];
+  pg.querySelectorAll('.chip').forEach(function(b){b.classList.toggle('on',+b.dataset.i===i)});
+  pd.style.setProperty('--cc',c.c);pd.classList.remove('fi');void pd.offsetWidth;pd.classList.add('fi');
+  pd.innerHTML='<div class="dh"><div><span class="hi">'+c.hi+'</span><h3>'+c.n+'</h3><p>'+c.b+'</p></div><a class="btn" href="mailto:hello@harshil.com?subject='+encodeURIComponent('Project enquiry: '+c.n)+'">Discuss a project</a></div><div class="vids">'+c.v.map(function(v){return '<a href="'+(v[3]||'#')+'"><div class="thumb '+v[2]+'"><span class="du mono">'+v[1]+'</span>'+play+'</div><h5>'+v[0]+'</h5></a>'}).join('')+'</div><div class="di"><div><h4>What you get</h4><ul class="tags">'+c.w.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div><div><h4>Good to know</h4><ul class="gl">'+c.s.map(function(x){return '<li>'+x[0]+'<span>'+x[1]+'</span></li>'}).join('')+'</ul></div></div>';
+  if(scroll&&innerWidth<=860&&pd.getBoundingClientRect().top>innerHeight*.7)pd.scrollIntoView({behavior:'smooth',block:'start'})}
+ pg.addEventListener('click',function(e){var b=e.target.closest('.chip');if(b)show(+b.dataset.i,true)});
+ pd.addEventListener('click',function(e){var a=e.target.closest('.vids a');if(a&&a.getAttribute('href')==='#')e.preventDefault()});
+ show(idx(groups[0][1][0]),false)}
+picker($('feat'),G.map(function(g){return [g[0],g[2]]}));
+picker($('grid'),[['Other work',['Weddings','Creators & YouTube','Reels & short-form','Music videos & artists']]]);
+// category buttons open a popup with that type's videos
+function btns(host,groups){host.className='sel';host.innerHTML=groups.map(function(g){return '<div class="sr"><span class="pl mono">'+g[0]+'</span><div class="sb">'+g[1].map(function(nm){var i=idx(nm);return '<button class="chip" style="--cc:'+C[i].c+'" data-i="'+i+'"><i></i>'+nm+'<b>→</b></button>'}).join('')+'</div></div>'}).join('')}
+btns($('feat'),G.map(function(g){return [g[0],g[2]]}));
+btns($('grid'),[['Other work',['Weddings','Creators & YouTube','Reels & short-form','Music videos & artists']]]);
+function openCat(i){var c=C[i];lastF=document.activeElement;sheet.style.setProperty('--cc',c.c);
+ sheet.innerHTML='<button class="x" id="cx" aria-label="Close">×</button><span class="hi">'+c.hi+'</span><h3 id="pt">'+c.n+'</h3><p class="ab">'+c.b+'</p><div class="vids">'+c.v.map(function(v){return '<a href="'+(v[3]||'#')+'"><div class="thumb '+v[2]+'"><span class="du mono">'+v[1]+'</span>'+play+'</div><h5>'+v[0]+'</h5></a>'}).join('')+'</div><div class="di"><div><h4>What you get</h4><ul class="tags">'+c.w.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div><div><h4>Good to know</h4><ul class="gl">'+c.s.map(function(x){return '<li>'+x[0]+'<span>'+x[1]+'</span></li>'}).join('')+'</ul></div></div><a class="btn" href="mailto:hello@harshil.com?subject='+encodeURIComponent('Project enquiry: '+c.n)+'">Discuss a project</a>';
+ sheet.scrollTop=0;panel.classList.add('open');document.body.classList.add('lock');$('cx').focus()}
+document.addEventListener('click',function(e){var b=e.target.closest('.sel .chip');if(b){openCat(+b.dataset.i);return}
+ var a=e.target.closest('.vids a');if(a&&a.getAttribute('href')==='#')e.preventDefault()});
+// moving Indian art in the backgrounds: fish, birds, marigolds, elephant
+function sv(t,w,h,vb){return '<svg viewBox="'+vb+'" width="'+w+'" height="'+h+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">'+t+'</svg>'}
+function fishM(w,a,b){return sv('<path d="M115 30Q85 0 35 30Q85 60 115 30Z" fill="'+a+'"/><path d="M105 30Q82 11 42 30Q82 49 105 30Z" stroke-width="1.4"/><path d="M35 30L4 8L14 30L4 52Z" fill="'+b+'"/><path d="M52 30q8-8 16 0M64 30q8 8 16 0M76 30q8-8 16 0" stroke-width="1.4"/><circle cx="99" cy="27" r="3.5" fill="#fbf3e2"/>',w,w/2,'0 0 120 60')}
+function birdM(w,a,b){return sv('<path d="M20 36L2 26L6 38L2 50Z" fill="'+b+'"/><ellipse cx="45" cy="36" rx="26" ry="13" fill="'+a+'"/><circle cx="76" cy="28" r="9" fill="'+a+'"/><path d="M84 26L97 31L84 34Z" fill="#ffb81c"/><circle cx="79" cy="26" r="1.8" fill="currentColor" stroke="none"/><path d="M72 20L70 11M76 19L78 10" stroke-width="1.6"/><g class="wg"><path d="M40 32C32 6 58 -2 68 6C58 16 52 28 44 36Z" fill="'+b+'"/></g>',w,w*.64,'0 -6 100 64')}
+function flowerM(w,a,b){var p='';for(var i=0;i<8;i++)p+='<ellipse cy="-10" rx="5" ry="9" transform="rotate('+i*45+')" fill="'+a+'" stroke-width="1.2"/>';return sv(p+'<circle r="5" fill="'+b+'"/>',w,w,'-20 -20 40 40')}
+function elephantM(w){var L='';[38,58,90,108].forEach(function(x){L+='<rect class="leg" x="'+x+'" y="60" width="14" height="34" rx="5" fill="#26268f"/>'});return sv(L+'<path d="M30 34Q16 40 20 58" stroke-width="3"/><rect x="28" y="20" width="96" height="50" rx="25" fill="#26268f"/><path d="M52 20H104L112 40H44Z" fill="#ffb81c"/><circle cx="64" cy="30" r="3" fill="#d6246e"/><circle cx="78" cy="30" r="3" fill="#d6246e"/><circle cx="92" cy="30" r="3" fill="#d6246e"/><path d="M146 46C160 56 158 80 148 90" stroke-width="13"/><path d="M146 46C160 56 158 80 148 90" stroke="#26268f" stroke-width="9"/><circle cx="130" cy="42" r="22" fill="#26268f"/><ellipse cx="118" cy="46" rx="10" ry="15" fill="#d6246e"/><path d="M142 54Q156 56 158 66" stroke="#fbf3e2" stroke-width="4"/><circle cx="138" cy="36" r="2.6" fill="#fbf3e2" stroke="none"/>',w,w*.6,'0 0 165 98')}
+function mvAdd(s,c,h,css,t,dl){var d=document.createElement('div');d.className='mv '+c;d.style.cssText=css+';--t:'+t+'s;animation-delay:-'+dl+'s';d.innerHTML=h;s.appendChild(d)}
+var LM=matchMedia('(max-width:760px),(pointer:coarse)').matches;
+var pc=[['#ffb81c','#e8501a'],['#d6246e','#ffb81c'],['#00897b','#ffb81c'],['#e8501a','#26268f'],['#26268f','#d6246e']];
+document.querySelectorAll('.hero,section').forEach(function(s,si){var p=pc[si%5];
+ mvAdd(s,'r fish',fishM(110,p[0],p[1]),'top:'+(16+si*6)+'%',40+si*3,si*11);
+ if(!LM)mvAdd(s,'l fish',fishM(80,p[1],p[0]),'top:'+(66-si*4)+'%',54,si*7+15);
+ if(!LM||si%2===0)mvAdd(s,(si%2?'l':'r')+' bird',birdM(96,p[0],p[1]),'top:'+(6+si*9)+'%',32+si*2,si*9);
+ for(var i=0;i<(LM?1:3);i++)mvAdd(s,'pt',flowerM(26+i*6,p[i%2],p[1]),'left:'+((i*31+si*13+10)%88)+'%',20+i*5,i*7+si*3)});
+mvAdd($('contact'),'r el',elephantM(150),'bottom:0;z-index:3',60,10);
+// waveform
+var w='';for(var i=0;i<(innerWidth<760?48:110);i++){var h=14+Math.abs(Math.sin(i*.45)*Math.cos(i*.13))*70+Math.random()*16;w+='<i class="'+(i%23==0?'hot':'')+'" style="--h:'+h.toFixed(0)+'px;--d:'+(.5+Math.random()*1.4).toFixed(2)+'s"></i>'}
+$('wave').innerHTML=w;
+// timecode helpers
+function tc(s){var f=Math.floor((s%1)*25),ss=Math.floor(s)%60,m=Math.floor(s/60)%60,h=Math.floor(s/3600);return [h,m,ss,f].map(function(n){return String(n).padStart(2,'0')}).join(':')}
+var t0=performance.now(),hc=$('hc'),tcEl=$('tc'),tf=$('tf'),th=$('th'),tkEl=$('tk');
+function prog(){var m=document.body.scrollHeight-innerHeight;return m>0?Math.min(scrollY/m,1):0}
+var lt=0,ly=-1;(function loop(n){if(n-lt>80){lt=n;hc.textContent=tc((n-t0)/1000)}if(scrollY!==ly){ly=scrollY;var p=prog();tcEl.textContent=tc(p*150);tf.style.width=(p*100)+'%';th.style.left=(p*100)+'%'}requestAnimationFrame(loop)})(performance.now());
+function marks(){tkEl.querySelectorAll('a').forEach(function(a){a.remove()});var m=document.body.scrollHeight-innerHeight;
+ [['work','Work'],['services','Services'],['more','More'],['contact','Contact']].forEach(function(x){var e=$(x[0]),l=Math.min(e.offsetTop/m,1)*100,a=document.createElement('a');a.href='#'+x[0];a.style.left=l+'%';a.innerHTML='<span>'+x[1]+'</span>';tkEl.appendChild(a)})}
+marks();addEventListener('load',marks);addEventListener('resize',marks);if(document.fonts)document.fonts.ready.then(marks);
+// reveal
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(function(x){io.observe(x)});
+// theme switch (light by default, choice is remembered when storage is available)
+var root=document.documentElement,thm=$('thm');
+function setTheme(t,save){root.dataset.theme=t;thm.setAttribute('aria-pressed',t==='dark');thm.setAttribute('aria-label','Switch to '+(t==='dark'?'light':'dark')+' theme');if(save){try{localStorage.setItem('hk-theme',t)}catch(e){}}}
+var saved=null;try{saved=localStorage.getItem('hk-theme')}catch(e){}
+setTheme(saved==='dark'?'dark':'light',false);
+thm.addEventListener('click',function(){setTheme(root.dataset.theme==='dark'?'light':'dark',true)});
+// animations switch: shown only when the device asks for reduced motion
+var mot=$('mot'),root2=document.documentElement;
+if(matchMedia('(prefers-reduced-motion:reduce)').matches){mot.hidden=false;
+ try{if(localStorage.getItem('hk-motion')==='on')root2.dataset.motion='on'}catch(e){}
+ var setMot=function(on,save){if(on)root2.dataset.motion='on';else delete root2.dataset.motion;mot.textContent='Animations: '+(on?'on':'off');mot.setAttribute('aria-pressed',on);if(save){try{localStorage.setItem('hk-motion',on?'on':'off')}catch(e){}}};
+ setMot(root2.dataset.motion==='on',false);
+ mot.addEventListener('click',function(){setMot(root2.dataset.motion!=='on',true)})}
+// intro
+var intro=$('intro');
+function done(){document.body.classList.remove('lock');intro.classList.add('out');setTimeout(function(){intro.remove()},1000)}
+if(matchMedia('(prefers-reduced-motion:reduce)').matches&&document.documentElement.dataset.motion!=='on'){intro.remove();document.body.classList.remove('lock')}
+else{var s0=performance.now();(function c(t){var p=Math.min((t-s0)/1500,1),v=Math.round(100*(1-Math.pow(1-p,2)));$('in').textContent=String(v).padStart(3,'0');$('ib').style.width=v+'%';if(p<1)requestAnimationFrame(c);else setTimeout(done,250)})(s0)}
+</script>
+</body>
+</html>
